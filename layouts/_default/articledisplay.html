@@ -1,7 +1,8 @@
 {{ define "main" }}
-    {{ $pages := where .Site.RegularPages "Type" "blog" }}
+    {{ $currentSection := .Section }}
+    {{ $sectionPages := where .Site.RegularPages "Section" $currentSection }}
     {{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}
-    {{ $filtered := ($pages | intersect $notHidden) }}
+    {{ $filtered := ($sectionPages | intersect $notHidden) }}
     {{ $pag := .Paginate ($filtered) }}
 
     <section class="article-list">
