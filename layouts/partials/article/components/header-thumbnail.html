@@ -1,0 +1,35 @@
+<header class="article-header">
+    {{- $thumbnail := partialCached "helper/thumbnail" (dict "Context" . "Type" "article") .RelPermalink "article" -}}
+    {{ if (and $thumbnail.exists (not .Params.hideCover)) }}
+        <div class="article-image">
+            <a href="{{ .RelPermalink }}">
+                {{ if $thumbnail.resource }}
+                    {{- $Permalink := $thumbnail.resource.RelPermalink -}}
+                    {{- $Width := $thumbnail.resource.Width -}}
+                    {{- $Height := $thumbnail.resource.Height -}}
+                    {{- $Srcset := "" -}}
+
+                    {{- if (default true .Page.Site.Params.thumbnail.cover.enabled) -}}
+                        {{- $thumbnailResized := $thumbnail.resource.Resize "800x" -}}
+                        {{- $thumbnailRetina := $thumbnail.resource.Resize "1600x" -}}
+                        {{- $Srcset = printf "%s 800w, %s 1600w" $thumbnailResized.RelPermalink $thumbnailRetina.RelPermalink -}}
+                        {{- $Permalink = $thumbnailResized.RelPermalink -}}
+                        {{- $Width = $thumbnailResized.Width -}}
+                        {{- $Height = $thumbnailResized.Height -}}
+                    {{- end -}}
+
+                    <img src="{{ $Permalink }}"
+                        {{ with $Srcset }}srcset="{{ . }}"{{ end }}
+                        width="{{ $Width }}"
+                        height="{{ $Height }}"
+                        loading="lazy"
+                        alt="Featured thumbnail of post {{ .Title }}" />
+                {{ else }}
+                    <img src="{{ $thumbnail.permalink }}" loading="lazy" alt="Featured thumbnail of post {{ .Title }}" />
+                {{ end }}
+            </a>
+        </div>
+    {{ end }}
+
+    {{ partialCached "article/components/details" . .RelPermalink }}
+</header>
