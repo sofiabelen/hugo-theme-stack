@@ -26,6 +26,33 @@
   {{/* ---------- Divider ---------- */}}
     <hr>
 
+  {{/* ========== Featured Essays ========== */}}
+  {{ $posts := where .Site.RegularPages "Section" "literature" }}
+  {{ $posts = where $posts "Params.featured" true }}
+  {{ $posts = where $posts "Params.hidden" "ne" true }}
+
+  {{ if gt (len $posts) 0 }}
+    <section class="article-group mt-10">
+      <h2 class="article-title">
+        Featured Essays
+      </h2>
+      <p class="article-subtitle"></p>
+
+      <br />
+      <br />
+
+      <div class="article-list">
+        {{ range $posts }}
+          {{ partial "article-list/default" . }}
+        {{ end }}
+      </div>
+    </section>
+
+  {{ end }}
+
+  {{/* ---------- Divider ---------- */}}
+    <hr>
+
   {{/* ========== Featured Blog Posts ========== */}}
   {{ $posts := where .Site.RegularPages "Section" "blog" }}
   {{ $posts = where $posts "Params.featured" true }}
