@@ -10,44 +10,15 @@
       <h1 class="article-title">
         Featured Projects
       </h1>
-      <p class="article-subtitle">Personal work across physics, math, and performance-sensitive programming.</p>
-
       <br />
       <br />
 
-      <div class="article-list">
+      <div class="article-list article-list--tile mt-8">
         {{ range $projects }}
           {{ partial "article-list/default" . }}
         {{ end }}
       </div>
     </section>
-  {{ end }}
-
-  {{/* ---------- Divider ---------- */}}
-    <hr>
-
-  {{/* ========== Featured Essays ========== */}}
-  {{ $posts := where .Site.RegularPages "Section" "literature" }}
-  {{ $posts = where $posts "Params.featured" true }}
-  {{ $posts = where $posts "Params.hidden" "ne" true }}
-
-  {{ if gt (len $posts) 0 }}
-    <section class="article-group mt-10">
-      <h2 class="article-title">
-        Featured Essays
-      </h2>
-      <p class="article-subtitle"></p>
-
-      <br />
-      <br />
-
-      <div class="article-list">
-        {{ range $posts }}
-          {{ partial "article-list/default" . }}
-        {{ end }}
-      </div>
-    </section>
-
   {{ end }}
 
   {{/* ---------- Divider ---------- */}}
@@ -64,6 +35,33 @@
         Featured Posts
       </h2>
       <p class="article-subtitle">Thoughts and reflections, as I figure things out.</p>
+
+      <br />
+      <br />
+
+      <div class="article-list">
+        {{ range $posts }}
+          {{ partial "article-list/default" . }}
+        {{ end }}
+      </div>
+    </section>
+
+  {{ end }}
+
+  {{/* ---------- Divider ---------- */}}
+    <hr>
+
+  {{/* ========== Featured Essays ========== */}}
+  {{ $posts := where .Site.RegularPages "Section" "literature" }}
+  {{ $posts = where $posts "Params.featured" true }}
+  {{ $posts = where $posts "Params.hidden" "ne" true }}
+
+  {{ if gt (len $posts) 0 }}
+    <section class="article-group mt-10">
+      <h2 class="article-title">
+        Featured Essays
+      </h2>
+      <p class="article-subtitle"></p>
 
       <br />
       <br />
